@@ -69,12 +69,25 @@ class Sections extends MX_Controller {
 
 	private function homepage()
 	{
-
 		$data = array(
 				  'base_url' => base_url(),
 				  'asset_url' => asset_url()
 				  );
 		return $this->parser->parse('homepage.html', $data, TRUE);
+	}
+
+	function submit(){
+		$post = $this->input->post();
+		$userIp= $this->input->ip_address();
+		if ($post) {
+			$post['ip_address']   = $userIp;
+			$post['created_date'] = date("Y-m-d H:i:s",now());
+			$insert               = $this->db->insert('tbl_subscribers',array_filter($post));
+
+			$ret['error']   = 0;
+			$ret['message'] = 'Terima kasih telah mensubscribe.';
+		    echo json_encode($ret);
+		}
 	}
 
 	private function about()

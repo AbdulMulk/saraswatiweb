@@ -8,7 +8,7 @@ class Model_adminuser_auths extends CI_Model {
 	function __construct()
 	{
 		parent::__construct();
-		$this->groupID = $this->session->userdata('sess_admin')['adminuser_levels_id'];
+		$this->groupID = isset($this->session->userdata('sess_admin')['adminuser_levels_id']);
 	}
 	
 	
